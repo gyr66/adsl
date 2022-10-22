@@ -25,7 +25,11 @@ async function testProxy(host, port) {
   const res = await axios.get('https://www.baidu.com', {
     proxy: {
       host: host,
-      port: port
+      port: port,
+      auth: {
+        username: settings.proxyUsername,
+        password: settings.proxyPassword
+      }
     },
     timeout: 5000
   })
