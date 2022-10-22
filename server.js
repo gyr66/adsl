@@ -6,6 +6,8 @@ const logger = require('./logger')
 const db = require('./db')
 const settings = require('./settings')
 
+console.log(settings);
+
 const id = settings.id
 const peerId = settings.peerId
 
@@ -59,7 +61,7 @@ async function dial(req, res) {
   } catch (error) {
     logger.warn(`遇到错误: ${error}`)
     logger.info('开始重试...')
-    dial()
+    dial(req, res)
   }
 }
 

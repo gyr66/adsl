@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
   redisKey: 'adsl', // redis数据库hash键名
   redisHost: '', // redis主机名
   redisPort: 6379, // redis端口号
