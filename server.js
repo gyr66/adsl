@@ -6,7 +6,7 @@ const logger = require('./logger')
 const db = require('./db')
 const settings = require('./settings')
 
-console.log(settings);
+console.log(settings)
 
 const id = settings.id
 const peerId = settings.peerId
@@ -19,10 +19,7 @@ app.listen(port, '0.0.0.0', () =>
 
 let startTime, endTime, avgTime
 
-async function dial(req, res) {
-  const peerIp = req.ip
-  res.send('OK')
-
+async function run(peerIp) {
   try {
     logger.info('从数据库中移除当前代理...')
     await db.remove()
@@ -55,14 +52,20 @@ async function dial(req, res) {
     startTime = Date.now()
     logger.info(`向数据库插入IP成功!`)
 
-    logger.info(f`开始通知${peerId}拨号...`)
+    logger.info(`开始通知${peerId}拨号...`)
     const response = await axios.get('http://' + peerIp + ':3000/dial')
     if (response.data === 'OK') logger.info(`成功通知服务器${peerId}拨号!`)
   } catch (error) {
     logger.warn(`遇到错误: ${error}`)
     logger.info('开始重试...')
-    dial(req, res)
+    run(peerIp)
   }
+}
+
+async function dial(req, res) {
+  const peerIp = req.ip
+  res.send('OK')
+  run(peerIp)
 }
 
 app.get('/dial', dial)
