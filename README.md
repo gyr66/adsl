@@ -8,4 +8,4 @@
 3. 修改setting.js中配置。
 4. 在redis中手动添加当前两台机器的ip地址。
 5. ```node server.js```
-6. 执行curl A机器ip地址:3000/dial启动。
+6. 在B机器上执行curl A机器ip地址:3000/dial启动。

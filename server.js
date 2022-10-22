@@ -6,8 +6,6 @@ const logger = require('./logger')
 const db = require('./db')
 const settings = require('./settings')
 
-console.log(settings)
-
 const id = settings.id
 const peerId = settings.peerId
 
